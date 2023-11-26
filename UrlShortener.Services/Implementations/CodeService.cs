@@ -12,6 +12,7 @@ namespace UrlShortener.Services
         private const string AllowedCharacters = "0123456789aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
         
 
+        /// <inheritdoc />
         public async Task<string> GenerateHashCodeAsync(string url, int length)
         {
             const string HashKey = "urlshortenerapi";
@@ -43,6 +44,7 @@ namespace UrlShortener.Services
             return await Task.FromResult(code).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<string> GenerateRandomCodeAsync(string url, int length)
         {
             string code;

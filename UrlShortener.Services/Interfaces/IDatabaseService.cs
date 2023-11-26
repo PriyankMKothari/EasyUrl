@@ -12,7 +12,7 @@ namespace UrlShortener.Services
         /// </summary>
         /// <param name="tag"><see cref="TagModel" />.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken "/>.</param>
-        /// <returns><see cref="Task{TResult}"/></returns>
+        /// <returns>Newly created <see cref="TagModel" />.</returns>
         Task<TagModel> CreateAsync(TagModel tag, CancellationToken cancellationToken);
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace UrlShortener.Services
         /// </summary>
         /// <param name="code">Shortened code.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-        /// <returns></returns>
+        /// <returns><see cref="TagModel" />.</returns>
         Task<TagModel?> GetByShortCodeAsync(string code, CancellationToken cancellationToken);
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace UrlShortener.Services
         /// </summary>
         /// <param name="tag"><see cref="TagModel" />.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-        /// <returns></returns>
+        /// <returns>Updated <see cref="TagModel" />.</returns>
         Task<TagModel?> UpdateAsync(TagModel tag, CancellationToken cancellationToken);
 
         /// <summary>
@@ -52,15 +52,15 @@ namespace UrlShortener.Services
         /// </summary>
         /// <param name="id">Tag id.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-        /// <returns><see cref="Task{TResult}"/></returns>
-        Task DeleteAsync(int id, CancellationToken cancellationToken);
+        /// <returns>Soft-deleted <see cref="TagModel" />.</returns>
+        Task<TagModel?> DeleteAsync(int id, CancellationToken cancellationToken);
 
         /// <summary>
         /// Checks if the code already exists.
         /// </summary>
         /// <param name="code">Shortened code.</param>
         /// <param name="CancellationToken"><see cref="CancellationToken" />.</param>
-        /// <returns></returns>
+        /// <returns><see langword="true" /> if <see cref="TagModel.Code" /> exists, otherwise <see langword="false" /></returns>
         Task<bool> ShortCodeExistsAsync(string code, CancellationToken CancellationToken);
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace UrlShortener.Services
         /// </summary>
         /// <param name="url">Long url.</param>
         /// <param name="CancellationToken"><see cref="CancellationToken" />.</param>
-        /// <returns></returns>
+        /// <returns><see langword="true" /> if <see cref="TagModel.Url" /> exists, otherwise <see langword="false" /></returns>
         Task<bool> LongUrlExistsAsync(string url, CancellationToken CancellationToken);
 
         /// <summary>

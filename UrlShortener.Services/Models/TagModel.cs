@@ -1,18 +1,14 @@
-﻿namespace UrlShortner.Services.Models
+﻿using UrlShortener.Application;
+
+namespace UrlShortner.Services.Models
 {
-    /// <summary>
-    /// Represents the shortened code for the long url.
-    /// </summary>
-    public sealed class TagModel
+    /// <inheritdoc />
+    public sealed class TagModel : ITagModel
     {
-        /// <summary>
-        /// Gets or sets the shortened code.
-        /// </summary>
+        /// <inheritdoc />
         public string Code { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Gets or sets the long url.
-        /// </summary>
+        /// <inheritdoc />
         public string Url { get; set; } = string.Empty;
     }
 }

@@ -24,27 +24,33 @@ namespace UrlShortener.Services
         }
 
         /// <inheritdoc />
-        public async Task<string> GenerateShortCodeAsync(string url, CancellationToken cancellationToken)
+        public async Task<ITagModel> GenerateShortCodeAsync(string url, CancellationToken cancellationToken)
         {
             string code = await this._codeService.GenerateHashCodeAsync(url, 10).ConfigureAwait(false);
 
-            TagModel tagModel = new TagModel { Code = code, Url = url };
+            TagModel tagModel = await _databaseService.CreateAsync(new TagModel { Code = code, Url = url }, cancellationToken).ConfigureAwait(false);
 
-            await _databaseService.CreateAsync(tagModel, cancellationToken).ConfigureAwait(false);
-
-            return await Task.FromResult(code);
+            return await Task.FromResult(tagModel);
         }
 
         /// <inheritdoc />
-        public async Task<string> GetShortCodeAsync(string url, CancellationToken cancellationToken)
+        public async Task<ITagModel> GetShortCodeAsync(string url, CancellationToken cancellationToken)
         {
-            return await _databaseService.GetShortCodeAsync(url, cancellationToken).ConfigureAwait(false);
+            string? code = await this._databaseService.GetShortCodeAsync(url, cancellationToken).ConfigureAwait(false);
+
+            TagModel tagModel = new TagModel { Code = code ?? string.Empty, Url = url ?? string.Empty };
+
+            return await Task.FromResult(tagModel);
         }
 
         /// <inheritdoc />
-        public async Task<string> GetLongUrlAsync(string code, CancellationToken cancellationToken)
+        public async Task<ITagModel> GetLongUrlAsync(string code, CancellationToken cancellationToken)
         {
-            return await _databaseService.GetLongUrlAsync(code, cancellationToken).ConfigureAwait(false);
+            string? url = await this._databaseService.GetLongUrlAsync(code, cancellationToken).ConfigureAwait(false);
+
+            TagModel tagModel = new TagModel { Code = code ?? string.Empty, Url = url ?? string.Empty };
+
+            return await Task.FromResult(tagModel);
         }
     }
 }

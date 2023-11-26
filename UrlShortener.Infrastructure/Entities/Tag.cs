@@ -4,14 +4,16 @@
     {
         public int Id { get; set; }
 
-        public string ShortCode { get; set; } = string.Empty;
+        public string Code { get; set; } = string.Empty;
 
-        public string LongUrl { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
 
         public bool IsDeleted { get; set; }
 
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
 
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTimeOffset ModifiedDate { get; set; }
+
+        public DateTimeOffset DeletedDate { get; set; }
     }
 }

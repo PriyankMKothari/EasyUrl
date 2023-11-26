@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Application;
-using UrlShortener.Persistent;
 using UrlShortener.Persistent.DbContexts;
-using UrlShortener.Persistent.Entities;
 using UrlShortener.Persistent.Repositories;
 using UrlShortener.Services;
 using UrlShortener.Services.Mappers;
@@ -54,6 +52,7 @@ namespace UrlShortener.Api
             webApplicationBuilder.Services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlite(webApplicationBuilder.Configuration.GetConnectionString("UrlShortenerConnectionString"));
+                
             });
             webApplicationBuilder.Services.AddScoped<DatabaseContext>();
 

@@ -3,6 +3,9 @@ using UrlShortener.Persistent.Entities;
 
 namespace UrlShortener.Persistent.Repositories
 {
+    /// <summary>
+    /// Repository to perform storage implementation for <see cref="Tag" />.
+    /// </summary>
     public interface ITagRepository
     {
         /// <summary>
@@ -19,7 +22,7 @@ namespace UrlShortener.Persistent.Repositories
         /// <param name="tag"><see cref="Tag" /> to delete</param>
         /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
         /// <returns><see cref="Task" />.</returns>
-        Task DeleteAsync(Tag tag, CancellationToken cancellationToken);
+        Task<Tag> DeleteAsync(Tag tag, CancellationToken cancellationToken);
 
         /// <summary>
         /// Checks if any <see cref="Tag" /> exists that match(es) condition(s).

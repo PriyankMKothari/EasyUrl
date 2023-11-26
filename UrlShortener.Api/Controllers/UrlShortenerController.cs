@@ -4,7 +4,7 @@ using UrlShortener.Application;
 namespace UrlShortener.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("shortener")]
     public class UrlShortenerController : ControllerBase
     {
         private readonly IUrlShortenerService _urlShortenerService;
@@ -20,26 +20,27 @@ namespace UrlShortener.Api.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpGet("url/{longUrl}")]
-        public async Task<IActionResult> GetByUrl([FromRoute] string longUrl, CancellationToken cancellationToken)
+        [HttpGet("url/{url}")]
+        public async Task<IActionResult> GetByUrl([FromRoute] string url, CancellationToken cancellationToken)
         {
-            string code = await this._urlShortenerService.GetShortCodeAsync(longUrl, cancellationToken).ConfigureAwait(false);
-            return Ok(code);
+            var tagModel = await this._urlShortenerService.GetShortCodeAsync(url, cancellationToken).ConfigureAwait(false);
+            return Ok(tagModel);
         }
 
-        [HttpGet("code")]
-        public async Task<IActionResult> GetByCode([FromRoute] string shortCode, CancellationToken cancellationToken)
+        [HttpGet("code/{code}")]
+        public async Task<IActionResult> GetByCode([FromRoute] string code, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost("generate")]
+        [HttpPost("url/{url}")]
         public async Task<IActionResult> Create([FromRoute] string url, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var tagModel = await this._urlShortenerService.GenerateShortCodeAsync(url, cancellationToken).ConfigureAwait(false);
+            return Ok(tagModel);
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("url/{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();

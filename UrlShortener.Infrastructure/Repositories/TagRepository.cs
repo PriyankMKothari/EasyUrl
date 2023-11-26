@@ -29,12 +29,13 @@ namespace UrlShortener.Persistent.Repositories
         }
 
         /// <inheritdoc />
-        public async Task DeleteAsync(Tag tag, CancellationToken cancellationToken)
+        public async Task<Tag> DeleteAsync(Tag tag, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(tag, nameof(tag));
 
             this._databaseContext.Remove(tag);
             await this._databaseContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return tag;
         }
 
         /// <inheritdoc />

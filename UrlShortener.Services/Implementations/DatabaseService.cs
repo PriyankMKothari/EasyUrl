@@ -51,7 +51,7 @@ namespace UrlShortener.Services
 
             try
             {
-                Tag? entity = await this._tagRepository.GetAsync(tag => tag.Id.Equals(id) && !tag.IsDeleted, cancellationToken).ConfigureAwait(false);
+                Tag? entity = await this._tagRepository.GetAsync(tag => tag.Id.Equals(id), cancellationToken).ConfigureAwait(false);
                 tagModel = this._autoMapper.Map<TagModel>(entity);
             }
             catch
@@ -69,7 +69,7 @@ namespace UrlShortener.Services
 
             try
             {
-                Tag? entity = await this._tagRepository.GetAsync(tag => tag.ShortCode.Equals(code, StringComparison.OrdinalIgnoreCase) && !tag.IsDeleted, cancellationToken).ConfigureAwait(false);
+                Tag? entity = await this._tagRepository.GetAsync(tag => tag.Code.Equals(code, StringComparison.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
                 tagModel = this._autoMapper.Map<TagModel>(entity);
             }
             catch
@@ -87,7 +87,8 @@ namespace UrlShortener.Services
 
             try
             {
-                Tag? entity = await this._tagRepository.GetAsync(tag => tag.LongUrl.Equals(url, StringComparison.OrdinalIgnoreCase) && !tag.IsDeleted, cancellationToken).ConfigureAwait(false);
+                Tag? entity =
+                    await this._tagRepository.GetAsync(tag => tag.Url.Equals(url, StringComparison.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
                 tagModel = this._autoMapper.Map<TagModel>(entity);
             }
             catch
@@ -117,17 +118,22 @@ namespace UrlShortener.Services
         }
 
         /// <inheritdoc/>
-        public async Task DeleteAsync(int id, CancellationToken cancellationToken)
+        public async Task<TagModel?> DeleteAsync(int id, CancellationToken cancellationToken)
         {
+            TagModel? tagModel = null;
+
             try
             {
                 Tag? entity = await this._tagRepository.GetAsync(tag => tag.Id.Equals(id), cancellationToken).ConfigureAwait(false);
-                await this._tagRepository.DeleteAsync(entity, cancellationToken).ConfigureAwait(false);
+                await this._tagRepository.DeleteAsync(this._autoMapper.Map<Tag>(entity), cancellationToken).ConfigureAwait(false);
+                tagModel = this._autoMapper.Map<TagModel>(entity);
             }
             catch
             {
                 throw;
             }
+
+            return tagModel;
         }
 
         /// <inheritdoc/>
@@ -137,7 +143,7 @@ namespace UrlShortener.Services
 
             try
             {
-                shortCodeExists = await this._tagRepository.ExistsAsync(tag => tag.ShortCode.Equals(code, StringComparison.OrdinalIgnoreCase) && !tag.IsDeleted, cancellationToken);
+                shortCodeExists = await this._tagRepository.ExistsAsync(tag => tag.Code.Equals(code, StringComparison.OrdinalIgnoreCase) && !tag.IsDeleted, cancellationToken);
             }
             catch
             {
@@ -154,7 +160,7 @@ namespace UrlShortener.Services
 
             try
             {
-                longUrlExists = await this._tagRepository.ExistsAsync(tag => tag.LongUrl.Equals(url, StringComparison.OrdinalIgnoreCase) && !tag.IsDeleted, cancellationToken);
+                longUrlExists = await this._tagRepository.ExistsAsync(tag => tag.Url.Equals(url, StringComparison.OrdinalIgnoreCase) && !tag.IsDeleted, cancellationToken);
             }
             catch
             {
@@ -169,8 +175,8 @@ namespace UrlShortener.Services
         {
             try
             {
-                Tag? entity = await this._tagRepository.GetAsync(tag => tag.LongUrl == url && !tag.IsDeleted, cancellationToken).ConfigureAwait(false);
-                return entity?.ShortCode ?? string.Empty;
+                Tag? entity = await this._tagRepository.GetAsync(tag => tag.Url == url && !tag.IsDeleted, cancellationToken).ConfigureAwait(false);
+                return entity?.Code ?? string.Empty;
             }
             catch
             {
@@ -183,8 +189,9 @@ namespace UrlShortener.Services
         {
             try
             {
-                Tag? entity = await this._tagRepository.GetAsync(tag => tag.ShortCode.Equals(code, StringComparison.OrdinalIgnoreCase) && !tag.IsDeleted, cancellationToken).ConfigureAwait(false);
-                return entity?.LongUrl ?? string.Empty;
+                Tag? entity =
+                    await this._tagRepository.GetAsync(tag => tag.Code.Equals(code, StringComparison.OrdinalIgnoreCase) && !tag.IsDeleted, cancellationToken).ConfigureAwait(false);
+                return entity?.Url ?? string.Empty;
             }
             catch
             {

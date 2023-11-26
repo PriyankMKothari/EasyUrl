@@ -1,5 +1,8 @@
 ﻿namespace UrlShortener.Application
 {
+    /// <summary>
+    /// Service to get <see cref="ITagModel.Code" /> or <see cref="ITagModel.Url" />.
+    /// </summary>
     public interface IUrlShortenerService
     {
         /// <summary>
@@ -8,7 +11,7 @@
         /// <param name="url">Url.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
         /// <returns></returns>
-        Task<string> GenerateShortCodeAsync(string url, CancellationToken cancellationToken);
+        Task<ITagModel> GenerateShortCodeAsync(string url, CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets short code from the url.
@@ -16,7 +19,7 @@
         /// <param name="url">Url.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
         /// <returns>A <see cref="string" /> generated from the <paramref name="url" />.</returns>
-        Task<string> GetShortCodeAsync(string url, CancellationToken cancellationToken);
+        Task<ITagModel> GetShortCodeAsync(string url, CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets long url from the code.
@@ -24,6 +27,6 @@
         /// <param name="code">Shortened code.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
         /// <returns>An original url that was shortened generating the <paramref name="code" />.</returns>
-        Task<string> GetLongUrlAsync(string code, CancellationToken cancellationToken);
+        Task<ITagModel> GetLongUrlAsync(string code, CancellationToken cancellationToken);
     }
 }
