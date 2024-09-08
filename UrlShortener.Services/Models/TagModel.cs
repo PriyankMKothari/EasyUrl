@@ -1,14 +1,19 @@
 ﻿using UrlShortener.Application;
 
-namespace UrlShortner.Services.Models
+namespace UrlShortener.Services.Models;
+
+/// <inheritdoc />
+public sealed class TagModel : ITagModel
 {
     /// <inheritdoc />
-    public sealed class TagModel : ITagModel
-    {
-        /// <inheritdoc />
-        public string Code { get; set; } = string.Empty;
+    public string Code { get; set; } = string.Empty;
 
-        /// <inheritdoc />
-        public string Url { get; set; } = string.Empty;
-    }
+    /// <inheritdoc />
+    public string Url { get; set; } = string.Empty;
+
+    /// <inheritdoc />
+    public DateTime CreatedAt { get; set; } = DateTime.Now.ToLocalTime();
+        
+    /// <inheritdoc />
+    public int Count { get; set; }
 }

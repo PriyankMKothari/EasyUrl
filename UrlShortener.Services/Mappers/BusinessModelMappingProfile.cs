@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
 using UrlShortener.Persistent.Entities;
-using UrlShortner.Services.Models;
+using UrlShortener.Services.Models;
 
-namespace UrlShortener.Services.Mappers
+namespace UrlShortener.Services.Mappers;
+
+public sealed class BusinessModelMappingProfile : Profile
 {
-    public sealed class BusinessModelMappingProfile : Profile
+    public BusinessModelMappingProfile()
     {
-        public BusinessModelMappingProfile()
-        {
-            CreateMap<TagModel, Tag>();
-            CreateMap<Tag, TagModel>();
-        }
+        CreateMap<TagModel, Tag>();
+        CreateMap<Tag, TagModel>();
     }
 }
