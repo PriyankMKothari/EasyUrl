@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UrlShortener.Application;
+using EasyUrl.Application;
 
-namespace UrlShortener.Api.Controllers;
+namespace EasyUrl.Api.Controllers;
 
 [ApiController]
 [Route("easify")]

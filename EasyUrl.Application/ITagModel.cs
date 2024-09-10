@@ -1,4 +1,4 @@
-﻿namespace UrlShortener.Application;
+﻿namespace EasyUrl.Application;
 
 /// <summary>
 /// Represents the shortened code for the long url.

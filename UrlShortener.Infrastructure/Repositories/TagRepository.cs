@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using UrlShortener.Persistent.DbContexts;
-using UrlShortener.Persistent.Entities;
+using EasyUrl.Persistent.DbContexts;
+using EasyUrl.Persistent.Entities;
 
-namespace UrlShortener.Persistent.Repositories;
+namespace EasyUrl.Persistent.Repositories;
 
 public sealed class TagRepository : ITagRepository
 {

@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UrlShortener.Application\UrlShortener.Application.csproj" />
-    <ProjectReference Include="..\UrlShortener.Infrastructure\UrlShortener.Persistent.csproj" />
+    <ProjectReference Include="..\EasyUrl.Application\EasyUrl.Application.csproj" />
+    <ProjectReference Include="..\UrlShortener.Infrastructure\EasyUrl.Persistent.csproj" />
   </ItemGroup>
 
   <ItemGroup>

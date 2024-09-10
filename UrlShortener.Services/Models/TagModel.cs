@@ -1,4 +1,4 @@
-﻿using UrlShortener.Application;
+﻿using EasyUrl.Application;
 
 namespace UrlShortener.Services.Models;
 

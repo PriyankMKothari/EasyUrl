@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using UrlShortener.Persistent.Entities;
+﻿using EasyUrl.Persistent.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace UrlShortener.Persistent.DbContexts;
+namespace EasyUrl.Persistent.DbContexts;
 
 public sealed class DatabaseContext : DbContext
 {

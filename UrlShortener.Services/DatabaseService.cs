@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using UrlShortener.Persistent.Entities;
-using UrlShortener.Persistent.Repositories;
+using EasyUrl.Persistent.Entities;
+using EasyUrl.Persistent.Repositories;
 using UrlShortener.Services.Models;
 
 namespace UrlShortener.Services;

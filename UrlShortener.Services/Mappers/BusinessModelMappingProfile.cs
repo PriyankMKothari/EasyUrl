@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using UrlShortener.Persistent.Entities;
+using EasyUrl.Persistent.Entities;
 using UrlShortener.Services.Models;
 
 namespace UrlShortener.Services.Mappers;

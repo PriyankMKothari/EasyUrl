@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using UrlShortener.Persistent.Entities;
+using EasyUrl.Persistent.Entities;
 
-namespace UrlShortener.Persistent.Repositories;
+namespace EasyUrl.Persistent.Repositories;
 
 /// <summary>
 /// Repository to perform storage implementation for <see cref="Tag" />.

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Api", "UrlShortener.Api\UrlShortener.Api.csproj", "{F752E19B-B04B-4237-A703-1AF0539DB712}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyUrl.Api", "EasyUrl.Api\EasyUrl.Api.csproj", "{F752E19B-B04B-4237-A703-1AF0539DB712}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Services", "UrlShortener.Services\UrlShortener.Services.csproj", "{1F4D2144-D809-4E68-8093-618133934065}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Application", "UrlShortener.Application\UrlShortener.Application.csproj", "{BE925A23-EC29-40E1-A061-FF6E5C04FF97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyUrl.Application", "EasyUrl.Application\EasyUrl.Application.csproj", "{BE925A23-EC29-40E1-A061-FF6E5C04FF97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Persistent", "UrlShortener.Infrastructure\UrlShortener.Persistent.csproj", "{FE0214D6-C812-4EB9-9A62-7AF630622431}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyUrl.Persistent", "UrlShortener.Infrastructure\EasyUrl.Persistent.csproj", "{FE0214D6-C812-4EB9-9A62-7AF630622431}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

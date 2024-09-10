@@ -1,4 +1,4 @@
-﻿namespace UrlShortener.Application;
+﻿namespace EasyUrl.Application;
 
 /// <summary>
 /// Service to get <see cref="ITagModel.Code" /> or <see cref="ITagModel.Url" />.

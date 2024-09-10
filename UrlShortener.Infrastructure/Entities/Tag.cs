@@ -1,4 +1,4 @@
-﻿namespace UrlShortener.Persistent.Entities;
+﻿namespace EasyUrl.Persistent.Entities;
 
 public sealed class Tag
 {
