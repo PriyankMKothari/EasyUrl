@@ -1,7 +1,7 @@
 ﻿using EasyUrl.Application;
-using UrlShortener.Services.Models;
+using EasyUrl.Services.Models;
 
-namespace UrlShortener.Services;
+namespace EasyUrl.Services;
 
 /// <summary>
 /// Implementation of <see cref="IUrlShortener" />.

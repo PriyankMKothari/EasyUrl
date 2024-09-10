@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace UrlShortener.Services;
+namespace EasyUrl.Services;
 
 /// <summary>
 /// Implementation of <see cref="ICodeService" />.

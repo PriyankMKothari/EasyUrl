@@ -1,4 +1,4 @@
-﻿namespace UrlShortener.Services;
+﻿namespace EasyUrl.Services;
 
 /// <summary>
 /// Service to generate random code based on the url and required length.

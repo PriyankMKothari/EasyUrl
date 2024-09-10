@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using EasyUrl.Persistent.Entities;
-using UrlShortener.Services.Models;
+using EasyUrl.Services.Models;
 
-namespace UrlShortener.Services.Mappers;
+namespace EasyUrl.Services.Mappers;
 
 public sealed class BusinessModelMappingProfile : Profile
 {

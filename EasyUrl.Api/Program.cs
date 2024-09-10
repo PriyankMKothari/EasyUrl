@@ -2,8 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using EasyUrl.Application;
 using EasyUrl.Persistent.DbContexts;
 using EasyUrl.Persistent.Repositories;
-using UrlShortener.Services;
-using UrlShortener.Services.Mappers;
+using EasyUrl.Services;
+using EasyUrl.Services.Mappers;
 
 namespace EasyUrl.Api;
 
@@ -60,7 +60,7 @@ public class Program
 
         // Services
         webApplicationBuilder.Services
-            .AddScoped<IUrlShortener, UrlShortener.Services.UrlShortener>()
+            .AddScoped<IUrlShortener, Services.UrlShortener>()
             .AddScoped<IDatabaseService, DatabaseService>()
             .AddScoped<ICodeService, CodeService>()
             .AddScoped<ITagRepository, TagRepository>();

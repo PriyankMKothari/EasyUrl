@@ -1,6 +1,6 @@
 ﻿using EasyUrl.Application;
 
-namespace UrlShortener.Services.Models;
+namespace EasyUrl.Services.Models;
 
 /// <inheritdoc />
 public sealed class TagModel : ITagModel

@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EasyUrl.Application\EasyUrl.Application.csproj" />
-    <ProjectReference Include="..\UrlShortener.Infrastructure\EasyUrl.Persistent.csproj" />
+    <ProjectReference Include="..\EasyUrl.Persistent\EasyUrl.Persistent.csproj" />
   </ItemGroup>
 
   <ItemGroup>

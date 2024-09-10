@@ -1,6 +1,6 @@
-﻿using UrlShortener.Services.Models;
+﻿using EasyUrl.Services.Models;
 
-namespace UrlShortener.Services;
+namespace EasyUrl.Services;
 
 /// <summary>
 /// Service to Add, Update, Delete and Read <see cref="TagModel" /> entity from database.

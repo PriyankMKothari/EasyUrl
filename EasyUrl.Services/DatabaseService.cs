@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using EasyUrl.Persistent.Entities;
 using EasyUrl.Persistent.Repositories;
-using UrlShortener.Services.Models;
+using EasyUrl.Services.Models;
 
-namespace UrlShortener.Services;
+namespace EasyUrl.Services;
 
 /// <summary>
 /// Implementation of the <see cref="IDatabaseService" />.
