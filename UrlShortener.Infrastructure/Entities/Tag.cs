@@ -8,5 +8,5 @@ public sealed class Tag
 
     public string Url { get; set; } = string.Empty;
 
-    public DateTimeOffset CreatedDate { get; set; }
+    public DateTimeOffset CreatedDate { get; set; } = DateTime.Now.ToLocalTime();
 }

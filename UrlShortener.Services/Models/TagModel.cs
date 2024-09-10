@@ -12,7 +12,7 @@ public sealed class TagModel : ITagModel
     public string Url { get; set; } = string.Empty;
 
     /// <inheritdoc />
-    public DateTime CreatedAt { get; set; } = DateTime.Now.ToLocalTime();
+    public DateTime CreatedAt { get; set; }
         
     /// <inheritdoc />
     public int Count { get; set; }
