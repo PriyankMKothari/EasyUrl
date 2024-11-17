@@ -3,64 +3,64 @@
 namespace EasyUrl.Services;
 
 /// <summary>
-/// Service to Add, Update, Delete and Read <see cref="TagModel" /> entity from database.
+/// Service to Add, Update, Delete and Read <see cref="EasyUrlModel" /> entity from database.
 /// </summary>
 public interface IDatabaseService
 {
     /// <summary>
-    /// Creates <see cref="TagModel" />.
+    /// Creates <see cref="EasyUrlModel" />.
     /// </summary>
-    /// <param name="tag"><see cref="TagModel" />.</param>
+    /// <param name="easyUrl"><see cref="EasyUrlModel" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken "/>.</param>
-    /// <returns>Newly created <see cref="TagModel" />.</returns>
-    Task<TagModel> CreateAsync(TagModel tag, CancellationToken cancellationToken);
+    /// <returns>Newly created <see cref="EasyUrlModel" />.</returns>
+    Task<EasyUrlModel> CreateAsync(EasyUrlModel easyUrl, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Gets <see cref="TagModel" /> by id.
+    /// Gets <see cref="EasyUrlModel" /> by id.
     /// </summary>
     /// <param name="id">Tag id.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns><see cref="TagModel" />.</returns>
-    Task<TagModel?> GetAsync(int id, CancellationToken cancellationToken);
+    /// <returns><see cref="EasyUrlModel" />.</returns>
+    Task<EasyUrlModel?> GetAsync(int id, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Gets <see cref="TagModel" /> by shortened code.
+    /// Gets <see cref="EasyUrlModel" /> by shortened code.
     /// </summary>
     /// <param name="code">Shortened code.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns><see cref="TagModel" />.</returns>
-    Task<TagModel?> GetByShortCodeAsync(string code, CancellationToken cancellationToken);
+    /// <returns><see cref="EasyUrlModel" />.</returns>
+    Task<EasyUrlModel?> GetByShortCodeAsync(string code, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Gets <see cref="TagModel" /> by long url.
+    /// Gets <see cref="EasyUrlModel" /> by long url.
     /// </summary>
     /// <param name="url">Long url.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns><see cref="TagModel" />.</returns>
-    Task<TagModel?> GetByLongUrlAsync(string url, CancellationToken cancellationToken);
+    /// <returns><see cref="EasyUrlModel" />.</returns>
+    Task<EasyUrlModel?> GetByLongUrlAsync(string url, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Updates <see cref="TagModel" />.
+    /// Updates <see cref="EasyUrlModel" />.
     /// </summary>
-    /// <param name="tag"><see cref="TagModel" />.</param>
+    /// <param name="easyUrl"><see cref="EasyUrlModel" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns>Updated <see cref="TagModel" />.</returns>
-    Task<TagModel?> UpdateAsync(TagModel tag, CancellationToken cancellationToken);
+    /// <returns>Updated <see cref="EasyUrlModel" />.</returns>
+    Task<EasyUrlModel?> UpdateAsync(EasyUrlModel easyUrl, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Deletes <see cref="TagModel" />.
+    /// Deletes <see cref="EasyUrlModel" />.
     /// </summary>
     /// <param name="id">Tag id.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns>Soft-deleted <see cref="TagModel" />.</returns>
-    Task<TagModel?> DeleteAsync(int id, CancellationToken cancellationToken);
+    /// <returns>Soft-deleted <see cref="EasyUrlModel" />.</returns>
+    Task<EasyUrlModel?> DeleteAsync(int id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Checks if the code already exists.
     /// </summary>
     /// <param name="code">Shortened code.</param>
     /// <param name="CancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns><see langword="true" /> if <see cref="TagModel.Code" /> exists, otherwise <see langword="false" /></returns>
+    /// <returns><see langword="true" /> if <see cref="EasyUrlModel.ShortUrl" /> exists, otherwise <see langword="false" /></returns>
     Task<bool> ShortCodeExistsAsync(string code, CancellationToken CancellationToken);
 
     /// <summary>
@@ -68,7 +68,7 @@ public interface IDatabaseService
     /// </summary>
     /// <param name="url">Long url.</param>
     /// <param name="CancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns><see langword="true" /> if <see cref="TagModel.Url" /> exists, otherwise <see langword="false" /></returns>
+    /// <returns><see langword="true" /> if <see cref="EasyUrlModel.OriginalUrl" /> exists, otherwise <see langword="false" /></returns>
     Task<bool> LongUrlExistsAsync(string url, CancellationToken CancellationToken);
 
     /// <summary>

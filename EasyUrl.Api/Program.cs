@@ -53,20 +53,18 @@ public class Program
         // Register DBContext
         webApplicationBuilder.Services.AddDbContext<DatabaseContext>(options =>
         {
-            options.UseSqlite(webApplicationBuilder.Configuration.GetConnectionString("EasyUrlConnectionString"));
+            var connectionString = webApplicationBuilder.Configuration.GetConnectionString("EasyUrlConnectionString"); 
+            options.UseSqlite(connectionString);
                 
         });
         webApplicationBuilder.Services.AddScoped<DatabaseContext>();
 
         // Services
         webApplicationBuilder.Services
-            .AddScoped<IUrlShortener, Services.UrlShortener>()
+            .AddScoped<IUrlShortener, UrlShortener>()
             .AddScoped<IDatabaseService, DatabaseService>()
             .AddScoped<ICodeService, CodeService>()
-            .AddScoped<ITagRepository, TagRepository>();
-
-        // Register AutoMappers
-        webApplicationBuilder.Services.AddAutoMapper(typeof(BusinessModelMappingProfile));
+            .AddScoped<IEasyUrlRepository, EasyUrlRepository>();
 
         // Build Web Application
         var webApplication = webApplicationBuilder.Build();

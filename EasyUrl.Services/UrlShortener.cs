@@ -1,55 +1,32 @@
 ﻿using EasyUrl.Application;
 using EasyUrl.Services.Models;
+using Microsoft.Extensions.Logging;
 
 namespace EasyUrl.Services;
 
 /// <summary>
 /// Implementation of <see cref="IUrlShortener" />.
 /// </summary>
-public sealed class UrlShortener : IUrlShortener
+public sealed class UrlShortener(
+    IDatabaseService databaseService,
+    ICodeService codeGeneratorService,
+    ILogger<IUrlShortener> logger) : IUrlShortener
 {
-    private readonly IDatabaseService _databaseService;
-    private readonly ICodeService _codeService;
+    private readonly IDatabaseService _databaseService =
+        databaseService ?? throw new ArgumentNullException(nameof(databaseService));
+    private readonly ICodeService _codeService =
+        codeGeneratorService ?? throw new ArgumentNullException(nameof(codeGeneratorService));
+    private readonly ILogger<IUrlShortener> _logger =
+        logger ?? throw new ArgumentNullException(nameof(logger));
 
-    /// <summary>
-    /// Initiates a new instance of <see cref="UrlShortener" />.
-    /// </summary>
-    /// <param name="databaseService"><see cref="IDatabaseService" />.</param>
-    /// <param name="codeGeneratorService"><see cref="ICodeService" />.</param>
-    /// <exception cref="ArgumentNullException"></exception>
-    public UrlShortener(IDatabaseService databaseService, ICodeService codeGeneratorService)
+    public Task<string> CreateShortUrlAsync(string originalUrl, string? customAlias, DateTimeOffset? expirationDateTimeOffset,
+        string? customDomain, CancellationToken cancellationToken)
     {
-        _databaseService = databaseService ?? throw new ArgumentNullException(nameof(databaseService));
-        _codeService = codeGeneratorService ?? throw new ArgumentNullException(nameof(codeGeneratorService));
+        throw new NotImplementedException();
     }
 
-    /// <inheritdoc />
-    public async Task<ITagModel?> GenerateCodeAsync(string url, CancellationToken cancellationToken)
+    public Task<string> GetOriginalUrlAsync(string shortUrl, CancellationToken cancellationToken)
     {
-        string code = await this._codeService.GenerateHashCodeAsync(url, 10).ConfigureAwait(false);
-
-        TagModel tagModel = await _databaseService.CreateAsync(new TagModel { Code = code, Url = url }, cancellationToken).ConfigureAwait(false);
-
-        return await Task.FromResult(tagModel);
-    }
-
-    /// <inheritdoc />
-    public async Task<ITagModel?> GetCodeAsync(string url, CancellationToken cancellationToken)
-    {
-        string? code = await this._databaseService.GetShortCodeAsync(url, cancellationToken).ConfigureAwait(false);
-
-        TagModel tagModel = new TagModel { Code = code ?? string.Empty, Url = url ?? string.Empty };
-
-        return await Task.FromResult(tagModel);
-    }
-
-    /// <inheritdoc />
-    public async Task<ITagModel?> GetUrlAsync(string code, CancellationToken cancellationToken)
-    {
-        string? url = await this._databaseService.GetLongUrlAsync(code, cancellationToken).ConfigureAwait(false);
-
-        TagModel tagModel = new TagModel { Code = code ?? string.Empty, Url = url ?? string.Empty };
-
-        return await Task.FromResult(tagModel);
+        throw new NotImplementedException();
     }
 }

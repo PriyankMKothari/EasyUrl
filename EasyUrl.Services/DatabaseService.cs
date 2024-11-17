@@ -1,40 +1,31 @@
-﻿using AutoMapper;
-using EasyUrl.Persistent.Entities;
+﻿using EasyUrl.Services.Mappers;
 using EasyUrl.Persistent.Repositories;
 using EasyUrl.Services.Models;
+using Microsoft.Extensions.Logging;
 
 namespace EasyUrl.Services;
 
 /// <summary>
 /// Implementation of the <see cref="IDatabaseService" />.
 /// </summary>
-public sealed class DatabaseService : IDatabaseService
+public sealed class DatabaseService(IEasyUrlRepository easyUrlRepository, ILogger<IDatabaseService> logger) : IDatabaseService
 {
-    private readonly ITagRepository _tagRepository;
-    private readonly IMapper _autoMapper;
-
-    /// <summary>
-    /// Initiates an instance of <see cref="DatabaseService" />.
-    /// </summary>
-    /// <param name="tagRepository"><see cref="ITagRepository" />.</param>
-    /// <param name="autoMapper"><see cref="Mapper" />.</param>
-    public DatabaseService(ITagRepository tagRepository, IMapper autoMapper)
-    {
-        _tagRepository = tagRepository ?? throw new ArgumentNullException(nameof(tagRepository));
-        _autoMapper = autoMapper ?? throw new ArgumentNullException(nameof(autoMapper));
-    }
+    private readonly IEasyUrlRepository _easyUrlRepository =
+        easyUrlRepository ?? throw new ArgumentNullException(nameof(easyUrlRepository));
+    private readonly ILogger<IDatabaseService> _logger =
+        logger ?? throw new ArgumentNullException(nameof(logger));
 
     /// <inheritdoc/>
-    public async Task<TagModel> CreateAsync(TagModel tag, CancellationToken cancellationToken)
+    public async Task<EasyUrlModel> CreateAsync(EasyUrlModel easyUrl, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(tag, nameof(tag));
+        ArgumentNullException.ThrowIfNull(easyUrl, nameof(easyUrl));
 
-        TagModel? tagModel = null;
+        EasyUrlModel? tagModel = null;
 
         try
         {
-            Tag? entity = await _tagRepository.CreateAsync(_autoMapper.Map<Tag>(tag), cancellationToken).ConfigureAwait(false);
-            tagModel = _autoMapper.Map<TagModel>(entity);
+            Persistent.Entities.EasyUrl? entity = await _easyUrlRepository.CreateAsync(easyUrl.ToEntity(), cancellationToken).ConfigureAwait(false);
+            tagModel = entity.ToModel();
         }
         catch
         {
@@ -45,14 +36,14 @@ public sealed class DatabaseService : IDatabaseService
     }
 
     /// <inheritdoc/>
-    public async Task<TagModel?> GetAsync(int id, CancellationToken cancellationToken)
+    public async Task<EasyUrlModel?> GetAsync(int id, CancellationToken cancellationToken)
     {
-        TagModel? tagModel = null;
+        EasyUrlModel? tagModel = null;
 
         try
         {
-            Tag? entity = await _tagRepository.GetAsync(tag => tag.Id.Equals(id), cancellationToken).ConfigureAwait(false);
-            tagModel = _autoMapper.Map<TagModel>(entity);
+            Persistent.Entities.EasyUrl? entity = await _easyUrlRepository.GetAsync(tag => tag.Id.Equals(id), cancellationToken).ConfigureAwait(false);
+            tagModel = entity?.ToModel();
         }
         catch
         {
@@ -63,14 +54,14 @@ public sealed class DatabaseService : IDatabaseService
     }
 
     /// <inheritdoc/>
-    public async Task<TagModel?> GetByShortCodeAsync(string code, CancellationToken cancellationToken)
+    public async Task<EasyUrlModel?> GetByShortCodeAsync(string code, CancellationToken cancellationToken)
     {
-        TagModel? tagModel = null;
+        EasyUrlModel? tagModel = null;
 
         try
         {
-            Tag? entity = await _tagRepository.GetAsync(tag => tag.Code.Equals(code, StringComparison.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
-            tagModel = _autoMapper.Map<TagModel>(entity);
+            Persistent.Entities.EasyUrl? entity = await _easyUrlRepository.GetAsync(tag => tag.ShortUrl.Equals(code, StringComparison.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
+            tagModel = entity?.ToModel();
         }
         catch
         {
@@ -81,15 +72,15 @@ public sealed class DatabaseService : IDatabaseService
     }
 
     /// <inheritdoc/>
-    public async Task<TagModel?> GetByLongUrlAsync(string url, CancellationToken cancellationToken)
+    public async Task<EasyUrlModel?> GetByLongUrlAsync(string url, CancellationToken cancellationToken)
     {
-        TagModel? tagModel = null;
+        EasyUrlModel? tagModel = null;
 
         try
         {
-            Tag? entity =
-                await _tagRepository.GetAsync(tag => tag.Url.Equals(url, StringComparison.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
-            tagModel = _autoMapper.Map<TagModel>(entity);
+            Persistent.Entities.EasyUrl? entity =
+                await _easyUrlRepository.GetAsync(tag => tag.OriginalUrl.Equals(url, StringComparison.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
+            tagModel = entity?.ToModel();
         }
         catch
         {
@@ -100,14 +91,14 @@ public sealed class DatabaseService : IDatabaseService
     }
 
     /// <inheritdoc/>
-    public async Task<TagModel?> UpdateAsync(TagModel tag, CancellationToken cancellationToken)
+    public async Task<EasyUrlModel?> UpdateAsync(EasyUrlModel easyUrl, CancellationToken cancellationToken)
     {
-        TagModel? tagModel = null;
+        EasyUrlModel? tagModel = null;
 
         try
         {
-            Tag? entity = await _tagRepository.UpdateAsync(_autoMapper.Map<Tag>(tag), cancellationToken).ConfigureAwait(false);
-            tagModel = _autoMapper.Map<TagModel>(entity);
+            Persistent.Entities.EasyUrl? entity = await _easyUrlRepository.UpdateAsync(easyUrl.ToEntity(), cancellationToken).ConfigureAwait(false);
+            tagModel = entity?.ToModel();
         }
         catch
         {
@@ -118,22 +109,9 @@ public sealed class DatabaseService : IDatabaseService
     }
 
     /// <inheritdoc/>
-    public async Task<TagModel?> DeleteAsync(int id, CancellationToken cancellationToken)
+    public async Task<EasyUrlModel?> DeleteAsync(int id, CancellationToken cancellationToken)
     {
-        TagModel? tagModel = null;
-
-        try
-        {
-            Tag? entity = await _tagRepository.GetAsync(tag => tag.Id.Equals(id), cancellationToken).ConfigureAwait(false);
-            await _tagRepository.DeleteAsync(_autoMapper.Map<Tag>(entity), cancellationToken).ConfigureAwait(false);
-            tagModel = _autoMapper.Map<TagModel>(entity);
-        }
-        catch
-        {
-            throw;
-        }
-
-        return tagModel;
+        throw new NotImplementedException();
     }
 
     /// <inheritdoc/>
@@ -143,7 +121,7 @@ public sealed class DatabaseService : IDatabaseService
 
         try
         {
-            shortCodeExists = await _tagRepository.ExistsAsync(tag => tag.Code.Equals(code, StringComparison.OrdinalIgnoreCase), cancellationToken);
+            shortCodeExists = await _easyUrlRepository.ExistsAsync(tag => tag.ShortUrl.Equals(code, StringComparison.OrdinalIgnoreCase), cancellationToken);
         }
         catch
         {
@@ -160,7 +138,7 @@ public sealed class DatabaseService : IDatabaseService
 
         try
         {
-            longUrlExists = await _tagRepository.ExistsAsync(tag => tag.Url.Equals(url, StringComparison.OrdinalIgnoreCase), cancellationToken);
+            longUrlExists = await _easyUrlRepository.ExistsAsync(tag => tag.OriginalUrl.Equals(url, StringComparison.OrdinalIgnoreCase), cancellationToken);
         }
         catch
         {
@@ -175,8 +153,8 @@ public sealed class DatabaseService : IDatabaseService
     {
         try
         {
-            Tag? entity = await _tagRepository.GetAsync(tag => tag.Url == url, cancellationToken).ConfigureAwait(false);
-            return entity?.Code ?? string.Empty;
+            Persistent.Entities.EasyUrl? entity = await _easyUrlRepository.GetAsync(tag => tag.OriginalUrl == url, cancellationToken).ConfigureAwait(false);
+            return entity?.ShortUrl ?? string.Empty;
         }
         catch
         {
@@ -189,9 +167,9 @@ public sealed class DatabaseService : IDatabaseService
     {
         try
         {
-            Tag? entity =
-                await _tagRepository.GetAsync(tag => tag.Code.Equals(code, StringComparison.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
-            return entity?.Url ?? string.Empty;
+            Persistent.Entities.EasyUrl? entity =
+                await _easyUrlRepository.GetAsync(tag => tag.ShortUrl.Equals(code, StringComparison.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
+            return entity?.OriginalUrl ?? string.Empty;
         }
         catch
         {

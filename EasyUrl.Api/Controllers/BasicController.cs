@@ -22,14 +22,26 @@ public class BasicController(IUrlShortener urlShortener, ILogger<BasicController
     [HttpGet("{url}")]
     public async Task<IActionResult> Get([FromRoute] string url, CancellationToken cancellationToken)
     {
-        var tagModel = await this._urlShortener.GetCodeAsync(url, cancellationToken).ConfigureAwait(false);
-        return Ok(tagModel);
+        // if(!Uri.TryCreate(url, UriKind.Absolute, out var uri))
+        // {
+        //     return BadRequest("Invalid URL");
+        // }
+        //
+        // var tagModel = await this._urlShortener.GetShortUrlAsync(uri, cancellationToken).ConfigureAwait(false);
+        // return Ok(tagModel);
+        throw new NotImplementedException();
     }
 
     [HttpPost("{url}")]
     public async Task<IActionResult> Create([FromRoute] string url, CancellationToken cancellationToken)
     {
-        var tagModel = await this._urlShortener.GenerateCodeAsync(url, cancellationToken).ConfigureAwait(false);
-        return Ok(tagModel);
+        // if(!Uri.TryCreate(url, UriKind.Absolute, out var uri))
+        // {
+        //     return BadRequest("Invalid URL");
+        // }
+        //
+        // var tagModel = await this._urlShortener.CreateShortUrlAsync(uri, cancellationToken).ConfigureAwait(false);
+        // return Ok(tagModel);
+        throw new NotImplementedException();
     }
 }

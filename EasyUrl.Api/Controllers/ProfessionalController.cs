@@ -10,9 +10,5 @@ namespace EasyUrl.Api.Controllers;
 [Route("professional")]
 public class ProfessionalController : Controller
 {
-    // GET
-    public IActionResult Index()
-    {
-        return View();
-    }
+    
 }

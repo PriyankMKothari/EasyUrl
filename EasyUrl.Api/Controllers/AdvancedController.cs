@@ -9,9 +9,5 @@ namespace EasyUrl.Api.Controllers;
 [Route("advanced")]
 public class AdvancedController : Controller
 {
-    // GET
-    public IActionResult Index()
-    {
-        return View();
-    }
+    
 }

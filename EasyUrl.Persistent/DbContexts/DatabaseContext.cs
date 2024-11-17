@@ -1,39 +1,61 @@
-﻿using EasyUrl.Persistent.Entities;
+﻿using EasyUrl.Persistent.DbConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyUrl.Persistent.DbContexts;
 
 public sealed class DatabaseContext : DbContext
 {
-    public DbSet<Tag> Tags { get; set; }
+    public DbSet<Entities.EasyUrl> EasyUrls { get; set; }
+    public DbSet<Entities.Click> Clicks { get; set; }
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
-        base.Database.EnsureCreated();
+        base.Database.EnsureCreatedAsync();
     }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        builder.Entity<Tag>().ToTable("Tag");
-        builder.Entity<Tag>().HasKey(tag => tag.Id);
-        builder.Entity<Tag>().Property(tag => tag.Id).ValueGeneratedOnAdd();
-
-        builder.Entity<Tag>().Property(tag => tag.Code).IsRequired();
-        builder.Entity<Tag>().Property(tag => tag.Code).HasMaxLength(10);
-
-        builder.Entity<Tag>().Property(tag => tag.Url).IsRequired();
-        builder.Entity<Tag>().Property(tag => tag.Url).HasMaxLength(250);
+        EasyUrlConfiguration.Configure(modelBuilder.Entity<Entities.EasyUrl>());
+        ClickConfiguration.Configure(modelBuilder.Entity<Entities.Click>());
     }
 
-    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+    public override async Task<int> SaveChangesAsync(
+        bool acceptAllChangesOnSuccess,
+        CancellationToken cancellationToken = default)
     {
-        // set CreatedDate when entity is EntityState.Added.
-        var addedEntities = ChangeTracker.Entries().Where(entities => entities.State == EntityState.Added).ToList();
-        addedEntities.ForEach(entity =>
+        var entityEntries = ChangeTracker
+            .Entries()
+            .Where(entityEntry =>
+                entityEntry is
+                {
+                    State: EntityState.Added or
+                    EntityState.Modified or
+                    EntityState.Deleted
+                })
+            .ToList();
+
+        foreach (var entityEntry in entityEntries)
         {
-            entity.Property("CreatedDate").CurrentValue = DateTimeOffset.Now.ToLocalTime();
-        });
+            switch (entityEntry.State)
+            {
+                case EntityState.Added:
+                    entityEntry.Property("CreatedDate").CurrentValue = DateTimeOffset.Now.ToLocalTime();
+                    break;
 
-        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+                case EntityState.Modified:
+                    entityEntry.Property("ModifiedDate").CurrentValue = DateTimeOffset.Now.ToLocalTime();
+                    break;
+
+                case EntityState.Deleted:
+                    entityEntry.Property("ModifiedDate").CurrentValue = DateTimeOffset.Now.ToLocalTime();
+                    entityEntry.Property("DeletedDate").CurrentValue = DateTimeOffset.Now.ToLocalTime();
+                    entityEntry.Property("IsDeleted").CurrentValue = true;
+                    
+                    entityEntry.State = EntityState.Modified;
+                    break;
+            }
+        }
+
+        return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 }
